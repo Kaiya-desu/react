@@ -1,0 +1,87 @@
+<%- include('../../fragments/header.ejs')%>
+
+<script type="text/javascript" src="../../scripts/m-k-sFormValidation.js"></script>
+<script type="text/javascript" src="../../scripts/validation.js"></script>
+
+<main>
+    <h2><%= pageTitle %></h2>
+    <form class="form" method="post" action="<%=formAction%>" novalidate onsubmit="return validateMKSForm()">
+        <input type="hidden" name="MksID" value="<%= mks.MksID%>">
+
+        <label for="mage_name"><%= __('mks.fields.mageName') %>: <span class="error-info" >*</span> </label>
+        <select name="Mage_MageID" id="Mage_MageID" required <%= (formMode == 'showDetails') ? 'disabled' : ''%>>
+            <option value="0" selected><%= __('mks.form.placeholder.pickMage') %></option>
+            <% for (let i = 0; i < allMages.length; i++){ let mage = allMages[i]%>
+            <option value="<%= mage.MageID %>" label = "<%= mage.Name + " " + mage.Surname%>"
+                    <%= ((mks.MksID && mage.MageID.toString() == currMage)) ? 'selected' : ''%>></option>
+            <% } %>
+        </select>
+        <span id="errorMageName" class="error-input" >
+            <% if(validationErrors.find(e => e.path.includes('Mage_MageID'))) { %>
+                <%= validationErrors.find(e => e.path.includes('Mage_MageID')).message %>
+            <% } %>
+        </span>
+
+        <label for="spell_name" ><%= __('mks.fields.spellName') %>: <span class="error-info" >*</span> </label>
+        <select name="Spell_SpellID" id="Spell_SpellID" required <%= (formMode == 'showDetails') ? 'disabled' : ''%>>
+            <option value="0" selected><%= __('mks.form.placeholder.pickSpell') %></option>
+            <% for (let i = 0; i < allSpells.length; i++){ let spell = allSpells[i]%>
+            <option value="<%= spell.SpellID %>" label = "<%= spell.Name %>"
+                    <%= ((mks.MksID && spell.SpellID.toString() == currSpell)) ? 'selected' : ''%>></option>
+            <% } %>
+        </select>
+        <span id="errorSpellName" class="error-input" >
+            <% if(validationErrors.find(e => e.path.includes('Spell_SpellID'))) { %>
+                <%= validationErrors.find(e => e.path.includes('Spell_SpellID')).message %>
+            <% } %>
+        </span>
+
+
+        <label for="Learned_date"><%= __('mks.fields.learnedDate') %>: <span class="error-info" >*</span> </label>
+        <input type="date" name="Learned_date" id="Learned_date" value="<%= mks.Learned_date%>"
+                <%= (formMode == 'showDetails') ? 'disabled' : ''%>>
+        <span id="errorLearnedDate" class="error-input" >
+            <% if(validationErrors.find(e => e.path.includes('Learned_date'))) { %>
+                <%= validationErrors.find(e => e.path.includes('Learned_date')).message %>
+            <% } %>
+        </span>
+
+        <label><%= __('mks.fields.masteryLevel') %>: <span class="error-info" >*</span> </label>
+        <span>
+        <p><input type="radio" name="Mastery_level" id="null_radio" value="x" <%= (formMode == 'createNew') ? 'checked' : ''%>/>null
+        <input type="radio" name="Mastery_level" value="noob" <%= (mks.Mastery_level == 'noob') ? 'checked' : ''%> />NOOB</p>
+        <p><input type="radio" name="Mastery_level" value="intermediate" <%= (mks.Mastery_level == 'intermediate') ? 'checked' : ''%> />INTERMEDIATE</p>
+        <p><input type="radio" name="Mastery_level" value="expert"  <%= (mks.Mastery_level == 'expert') ? 'checked' : ''%>/>EXPERT</p>
+        </span>
+        <span id="errorMasteryLevel" class="error-input" >
+            <% if(validationErrors.find(e => e.path.includes('Mastery_level'))) { %>
+                <%= validationErrors.find(e => e.path.includes('Mastery_level')).message %>
+            <% } %>
+        </span>
+
+        <div>
+            <% if(formMode !== 'showDetails'){ %>
+                <div class="section-buttons">
+                    <input type="submit" value=<%= __('form.actions.add') %> class="form-button-submit"/> </div>
+            <% } %>
+            <a href="/mks" class="cancel"><%= __('form.actions.cancel') %></a>
+        </div>
+
+        <p id="errorsSummary" class="error-input" ></p>
+
+        <% if(formMode === 'showDetails'){ %>
+            <div class="section-buttons">
+                <a href="/mks/edit/<%= mks.MksID%>" class="edit"><%= __('form.actions.edit') %></a>
+            </div>
+        <% } %>
+    </form>
+
+    <div style="display: none">
+        <span id="errorMessage-errors"><%= __('validationMessage.errors') %></span>
+        <span id="errorMessage-required"><%= __('validationMessage.fieldRequired') %></span>
+        <span id="errorMessage-noValue"><%= __('validationMessage.noValue') %></span>
+    </div>
+
+</main>
+
+<%- include('../../fragments/footer.ejs')%>

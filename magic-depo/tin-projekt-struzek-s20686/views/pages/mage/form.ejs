@@ -1,0 +1,122 @@
+<%- include('../../fragments/header.ejs')%>
+
+<script type="text/javascript" src="../../scripts/mageFormValidation.js"></script>
+<script type="text/javascript" src="../../scripts/validation.js"></script>
+
+<main>
+    <h2><%= pageTitle %></h2>
+    <form class="form" method="post" onsubmit="return validateMageForm()" action="<%=formAction%>" novalidate>
+        <input type="hidden" name="MageID" value="<%= mage.MageID%>">
+
+        <label for="mage_name"><%= __('mage.fields.name') %>: <span class="error-info" >*</span> </label>
+        <input type="text" name="Name" id="Name" placeholder=<%= __('mage.form.placeholder.length20') %> value="<%= mage.Name%>"
+                <%= (formMode == 'showDetails') ? 'disabled' : ''%>>
+        <span id="errorName" class="error-input" >
+            <% if(validationErrors.find(e => e.path.includes('Name'))) { %>
+            <%= validationErrors.find(e => e.path.includes('Name')).message %>
+            <% } %>
+        </span>
+
+        <label for="mage_surname"><%= __('mage.fields.surname') %>: <span class="error-info" >*</span></label>
+        <input type="text" name="Surname" id="Surname" placeholder=<%= __('mage.form.placeholder.length20') %> value="<%= mage.Surname%>"
+                <%= (formMode == 'showDetails') ? 'disabled' : ''%>>
+        <span id="errorSurname" class="error-input" >
+            <% if(validationErrors.find(e => e.path.includes('Surname'))) { %>
+                <%= validationErrors.find(e => e.path.includes('Surname')).message %>
+            <% } %>
+        </span>
+
+        <label for="mage_title"><%= __('mage.fields.title') %>: </label>
+        <input type="text" name="Title" id="Title" placeholder=<%= __('mage.form.placeholder.length50') %> value="<%= mage.Title%>"
+                <%= (formMode == 'showDetails') ? 'disabled' : ''%>>
+        <span id="errorTitle" class="error-input" >
+            <% if(validationErrors.find(e => e.path.includes('Title'))) { %>
+                <%= validationErrors.find(e => e.path.includes('Title')).message %>
+            <% } %>
+        </span>
+
+        <label for="mage_certified_date"><%= __('mage.fields.certifiedDate') %>: <span class="error-info" >*</span></label>
+        <input type="date" name="Certified_date" id="Certified_date" value="<%= mage.Certified_date%>"
+                <%= (formMode == 'showDetails') ? 'disabled' : ''%>>
+        <span id="errorCertifiedDate" class="error-input" >
+            <% if(validationErrors.find(e => e.path.includes('Certified_date'))) { %>
+                <%= validationErrors.find(e => e.path.includes('Certified_date')).message %>
+            <% } %>
+        </span>
+
+        <!-- edycja email i hasla tak/nie? -->
+        <% if(formMode != 'edit'){ %>
+        <label for="mage_email"><%= __('mage.fields.email') %>: <span class="error-info" >*</span></label>
+        <input type="email" name="Email" id="Email" placeholder=<%= __('mage.form.placeholder.email') %> value="<%= mage.Email%>"
+                <%= (formMode != 'createNew') ? 'disabled' : ''%>>
+        <span id="errorEmail" class="error-input" >
+            <% if(validationErrors.find(e => e.path.includes('Email'))) { %>
+                <%= validationErrors.find(e => e.path.includes('Email')).message %>
+            <% } %>
+        </span>
+        <% } %>
+
+        <% if(formMode === 'createNew'){ %>
+        <label for="mage_password"><%= __('mage.fields.password') %>: <span class="error-info" >*</span></label>
+        <input type="password" name="Password" id="Password" placeholder=<%= __('mage.form.placeholder.length20') %> >
+        <span id="errorPassword" class="error-input" >
+            <% if(validationErrors.find(e => e.path.includes('Password'))) { %>
+                <%= validationErrors.find(e => e.path.includes('Password')).message %>
+            <% } %>
+        </span>
+        <% } %>
+
+        <div>
+            <% if(formMode !== 'showDetails'){ %>
+                <div class="section-buttons">
+                    <input type="submit" value=<%= __('form.actions.add') %> class="form-button-submit"/> </div>
+            <% } %>
+            <a href="/mages" class="cancel"><%= __('form.actions.cancel') %></a>
+        </div>
+        <p id="errorsSummary" class="error-input" ></p>
+
+        <% if(formMode === 'showDetails'){ %>
+            <div class="section-buttons">
+                <a href="/mages/edit/<%= mage.MageID%>" class="edit"><%= __('form.actions.edit') %></a>
+            </div>
+        <% } %>
+
+    </form>
+
+    <% if(formMode === 'showDetails' || formMode === 'edit') { %>
+        <h2><%= __('mage.form.spells') %></h2>
+        <table class="table-list">
+            <thead>
+            <tr>
+                <th><%= __('list.actions.details') %></th>
+                <th><%= __('spell.fields.name') %></th>
+                <th><%= __('mks.fields.learnedDate') %></th>
+                <th><%= __('mks.fields.masteryLevel') %></th>
+            </tr>
+            </thead>
+            <tbody>
+            <% for(let m of mksSpells) { %>
+                <tr>
+                    <td><a href="/spells/details/<%= m.spell.SpellID%>"><%= m.spell.Name%></a></td>
+                    <td><%= m.spell.Name%></td>
+                    <td><%= m.Learned_date %></td>
+                    <td><%= m.Mastery_level%></td>
+                </tr>
+            <% } %>
+            </tbody>
+        </table>
+    <% } %>
+
+    <div style="display: none">
+        <span id="errorMessage-errors"><%= __('validationMessage.errors') %></span>
+        <span id="errorMessage-required"><%= __('validationMessage.fieldRequired') %></span>
+        <span id="errorMessage-wrongLength3-20"><%= __('validationMessage.wrongLength3-20') %></span>
+        <span id="errorMessage-wrongLengthMax50"><%= __('validationMessage.wrongLengthMax50') %></span>
+        <span id="errorMessage-wrongEmail"><%= __('validationMessage.wrongEmail') %></span>
+    </div>
+
+
+</main>
+<br><br>
+
+<%- include('../../fragments/footer.ejs')%>

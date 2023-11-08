@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="/style.css">
+    <meta charset="UTF-8">
+    <title><%= __('nav.head') %></title>
+</head>
+<body>
+<div class="headerdiv">
+    <img class="logo" src="/images/logo.png" alt="Department of Magic logo"/>
+    <h1><%= __('nav.head') %></h1>
+</div>
+<nav class="topnav">
+    <div class="topdiv">
+        <a href="/" class="<%= navLocation == 'main' ? 'active' : ''%>"><%= __('nav.main-page') %></a>
+        <a href="/mages" class="<%= navLocation == 'mage' ? 'active' : ''%>"><%= __('nav.mages') %></a>
+        <a href="/spells" class="<%= navLocation == 'spell' ? 'active' : ''%>"><%= __('nav.spells') %></a>
+        <a href="/mks" class="<%= navLocation == 'mks' ? 'active' : ''%>"><%= __('nav.mks') %></a>
+        <span>
+            <a href="/changeLang/pl" class="<%= lang == 'pl' ? 'active' : ''%>">PL</a>
+            <a href="/changeLang/en" class="<%= lang == 'en' ? 'active' : ''%>">EN</a>
+        </span>
+    </div>
+</nav>
+
+<div class="middlenav">
+    <% if(!loggedUser) { %>
+        <div class="login">
+            <form class="loginForm" method="post" action="/login" novalidate>
+                <label for="loginEmail">Email:</label>
+                <input type="email" id="loginEmail" name="Email">
+
+                <label for="loginPassword">Password:</label>
+                <input type="password" id="loginPassword" name="Password">
+
+                <input type="submit" value="Login">
+                <span id="loginErrors"><%= loginError ? loginError : ''%> </span>
+
+            </form>
+        </div>
+    <% } else { %>
+        <span>User logged as: <%= loggedUser.Name + " " + loggedUser.Surname%> &emsp; </span>
+        <span><a href="/logout">Logout</a></span>
+    <% } %>
+</div>

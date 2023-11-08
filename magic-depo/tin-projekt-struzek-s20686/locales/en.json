@@ -1,0 +1,132 @@
+{
+	"main-page": {
+		"title": "Rigcz, mind and human dignity",
+		"content": "well, I'm asking, man, proud, are you aware of what you're doing? do you have the common sense and dignity of a human? what they deserved, but not our Polish Pope, our countryman, a great person, and so special and important because he is not someone there that you can laugh at because you like him so much I don't know what kind of family you grew up in, but you probably don't I know you don't understand what faith is. If you think you are great, you are just a fart that someone has not isolated from society yet, I don't know what is so funny in it, but grab on to Stalin or Hitler or other degenerates and you do not pick on such a saintly person as Pope John Paul 2. How can you post such photos publicly on internet forums? I do not know an atheist or you believe in some sects or you are a servant of Satan and you will not make a pope like that, then you probably are somehow I do not know what you are excited about by Satan's spawn. just think how much the pope did, he was someone and you who you are to make a mockery of him huh? Who gave you the right to offend our Pope? Have you thought about the fact that this is not such a person that he will laugh at her and everyone will praise me? take the child, you really are some psycho because, unlike you, the pope is an authority for me and you don't know who you can be the authority of, probably the same fools as you who do not know what church and religion are, you can see that you do not pray and do not go on religion to school, you see you do not respect religion, I do not know how you want, take your photo, put it in an interesting or dare. mentally fully developed, do not go for a person like the holy father because it proves that you do not have a cross at home, not a single offense to the saint, it is not about the church, but generally about the principles of faith to have some dignity because the pope did not offend anyone and you insult him for what? well tell me why you offend such a person as the holy father? I lack words but if you had an idea at least and reached for the scripture and read it to yourself, maybe you would change. I don't know go to church because you can see Satan is in you for a long time, man, you don't like of the church, at least keep quiet and do not offend other people"
+	},
+	"nav": {
+		"head": "Department of magic",
+		"main-page": "Main page",
+		"mages": "Mages",
+		"spells": "Spells",
+		"mks": "Mage know spells"
+	},
+	"list": {
+		"actions": {
+			"title": "Actions",
+			"details": "Details",
+			"edit": "Edit",
+			"delete": "Delete",
+			"add": "Add new value"
+		}
+	},
+	"form": {
+		"actions": {
+			"return": "Return",
+			"edit": "Edit",
+			"cancel": "Cancel",
+			"add": "Add"
+		}
+	},
+	"mage": {
+		"fields": {
+			"name": "Name",
+			"surname": "Surname",
+			"title": "Title",
+			"certifiedDate": "Certified date",
+			"email": "Email",
+			"password": "Password",
+			"action": "mage.fields.action"
+		},
+		"list": {
+			"title": "Mages",
+			"addNew": "Add new mage",
+			"noData": "No mages in database",
+			"pageTitle": "List of mages"
+		},
+		"form": {
+			"spells": "Spells list",
+			"add": {
+				"pageTitle": "Adding a new mage",
+				"btnLabel": "Add the mage"
+			},
+			"edit": {
+				"pageTitle": "Editing an mage",
+				"btnLabel": "Save changes"
+			},
+			"placeholder": {
+				"length20": "3-20characters",
+				"length50": "50characters",
+				"email": "email"
+			}
+		}
+	},
+	"spell": {
+		"fields": {
+			"name": "Name",
+			"description": "Description",
+			"manaCost": "Mana Cost"
+		},
+		"list": {
+			"title": "Spells",
+			"addNew": "Add new spell",
+			"noData": "No spells in DB",
+			"pageTitle": "List of spells"
+		},
+		"form": {
+			"mages": "List of mages knowing this spell",
+			"add": {
+				"pageTitle": "Dodawanie nowego czaru",
+				"btnLabel": "Dodaj czar"
+			},
+			"edit": {
+				"pageTitle": "Edytuj czar",
+				"btnLabel": "Zapisz zmiany"
+			},
+			"placeholder": {
+				"length20": "3-40characters",
+				"length200": "200characters",
+				"number": "1-9999"
+			}
+		}
+	},
+	"mks": {
+		"fields": {
+			"mageName": "Mage name",
+			"spellName": "Spell name",
+			"learnedDate": "Learned Date",
+			"masteryLevel": "Mastery level"
+		},
+		"list": {
+			"title": "Mage know spells",
+			"addNew": "Add new value",
+			"noData": "No values in DB",
+			"pageTitle": "List of mages and their spells"
+		},
+		"form": {
+			"add": {
+				"pageTitle": "Dodawanie nowej wartości",
+				"btnLabel": "Dodaj wartość"
+			},
+			"edit": {
+				"pageTitle": "Edytuj wartość",
+				"btnLabel": "Zapisz zmiany"
+			},
+			"placeholder": {
+				"pickMage": "--Pick mage--",
+				"pickSpell": "--Pick spell--"
+			}
+		}
+	},
+	"validationMessage": {
+		"errors": "Errors in the form",
+		"fieldRequired": "Field is required",
+		"wrongLength3-20": "3-20 characters",
+		"wrongEmail": "Insert valid email address",
+		"wrongLengthMax50": "Max 50 characters",
+		"wrongLength3-40": "3-40 characters",
+		"wrongLengthMax200": "Max 200 characters",
+		"wrongNumbers": "Choose value between 1 and 9999",
+		"noValue": "Pick value"
+	},
+	"wrongLength3-20": "wrongLength3-20"
+}

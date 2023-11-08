@@ -1,0 +1,43 @@
+<%- include('../../fragments/header.ejs')%>
+
+<main>
+<h2><%= __('mage.list.pageTitle') %></h2>
+    <table>
+        <thead>
+            <tr>
+                <th><%= __('mage.fields.name') %></th>
+                <th><%= __('mage.fields.surname') %></th>
+                <th><%= __('mage.fields.title') %></th>
+                <th><%= __('mage.fields.certifiedDate') %></th>
+                <th><%= __('list.actions.title') %></th>
+            </tr>
+        </thead>
+        <tfoot>
+        <tr>
+            <td colspan="5"><a href="/mages/add"><%= __('mage.list.addNew') %></a></td>
+        </tr>
+        </tfoot>
+        <tbody>
+            <% for (let mage of mages) { %>
+                <tr>
+                <td><%= mage.Name %></td>
+                <td><%= mage.Surname %></td>
+                <td><%= mage.Title %></td>
+                <td><%= new Date(mage.Certified_date.getTime() - (mage.Certified_date.getTimezoneOffset() * 60000 )).toISOString().split("T")[0]; %></td>
+                <td>
+                    <ul>
+                        <li><a href="/mages/details/<%= mage.MageID%>" class="list-actions-button-details"><%= __('list.actions.details') %></a></li>
+                        <li><a href="/mages/edit/<%= mage.MageID%>" class="list-actions-button-edit"><%= __('list.actions.edit') %></a></li>
+                        <%if(loggedUser && (loggedUser.Role === 1)) { %>
+                        <li><a href="/mages/delete/<%= mage.MageID%>" onclick="return confirm('OK?')" class="list-actions-button-delete"><%= __('list.actions.delete') %></a></li>
+                        <% } %>
+                    </ul>
+                </td>
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
+
+</main>
+
+<%- include('../../fragments/footer.ejs')%>

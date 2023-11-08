@@ -1,0 +1,88 @@
+<%- include('../../fragments/header.ejs')%>
+
+<script type="text/javascript" src="../../scripts/spellFormValidation.js"></script>
+<script type="text/javascript" src="../../scripts/validation.js"></script>
+
+<main>
+    <h2><%= pageTitle %></h2>
+    <form class="form" method="post" onsubmit="return validateSpellForm()"  action="<%=formAction%>" novalidate>
+        <input type="hidden" name="SpellID" value="<%= spell.SpellID%>">
+
+        <label for="spell_name"><%= __('spell.fields.name') %>: <span class="error-info" >*</span></label>
+        <input type="text" name="Name" id="Name" placeholder=<%= __('spell.form.placeholder.length20') %> value="<%= spell.Name%>"
+                <%= (formMode == 'showDetails') ? 'disabled' : ''%>>
+        <span id="errorName" class="error-input" >
+            <% if(validationErrors.find(e => e.path.includes('Name'))) { %>
+                <%= validationErrors.find(e => e.path.includes('Name')).message %>
+            <% } %>
+        </span>
+
+        <label for="spell_description"><%= __('spell.fields.description') %>: </label>
+        <textarea id="Description" name="Description" placeholder=<%= __('spell.form.placeholder.length200') %> rows="1" cols="40" <%= (formMode === 'showDetails') ? 'disabled' : ''%>><%= spell.Description%></textarea>
+        <span id="errorSpellDescription" class="error-input" >
+            <% if(validationErrors.find(e => e.path.includes('Description'))) { %>
+                <%= validationErrors.find(e => e.path.includes('Description')).message %>
+            <% } %>
+        </span>
+
+        <label for="mana_cost"><%= __('spell.fields.manaCost') %>: <span class="error-info" >*</span></label>
+        <input type="number" name="Mana_cost" id="Mana_cost" placeholder=<%= __('spell.form.placeholder.number') %> value="<%= spell.Mana_cost%>"
+                <%= (formMode === 'showDetails') ? 'disabled' : ''%>>
+        <span id="errorManaCost" class="error-input" >
+            <% if(validationErrors.find(e => e.path.includes('Mana_cost'))) { %>
+                <%= validationErrors.find(e => e.path.includes('Mana_cost')).message %>
+            <% } %>
+        </span>
+
+        <div>
+            <% if(formMode !== 'showDetails'){ %>
+                <div class="section-buttons">
+                    <input type="submit" value=<%= __('form.actions.add') %> class="form-button-submit"/> </div>
+            <% } %>
+            <a href="/spells" class="cancel"><%= __('form.actions.cancel') %></a>
+        </div>
+        <p id="errorsSummary" class="error-input" ></p>
+
+        <% if(formMode === 'showDetails'){ %>
+            <div class="section-buttons">
+                <a href="/spells/edit/<%= spell.SpellID%>" class="edit"><%= __('form.actions.edit') %></a>
+            </div>
+        <% } %>
+
+    </form>
+
+    <% if(formMode === 'showDetails' || formMode === 'edit') { %>
+        <h2>DETAILS</h2>
+        <table class="table-list">
+            <thead>
+            <tr>
+                <th><%= __('list.actions.details') %></th>
+                <th><%= __('mage.fields.name') %></th>
+                <th><%= __('mks.fields.learnedDate') %></th>
+                <th><%= __('mks.fields.masteryLevel') %></th>
+            </tr>
+            </thead>
+            <tbody>
+            <% for(let s of mksMages) { %>
+                <tr>
+                    <td><a href="/mages/details/<%= s.mage.MageID%>"><%= s.mage.Name%> <%= s.mage.Surname%></a></td>
+                    <td><%= s.mage.Name%></td>
+                    <td><%= s.Learned_date %></td>
+                    <td><%= s.Mastery_level%></td>
+                </tr>
+            <% } %>
+            </tbody>
+        </table>
+    <% } %>
+
+    <div style="display: none">
+        <span id="errorMessage-errors"><%= __('validationMessage.errors') %></span>
+        <span id="errorMessage-required"><%= __('validationMessage.fieldRequired') %></span>
+        <span id="errorMessage-wrongLength3-40"><%= __('validationMessage.wrongLength3-40') %></span>
+        <span id="errorMessage-wrongLengthMax200"><%= __('validationMessage.wrongLengthMax200') %></span>
+        <span id="errorMessage-wrongNumbers"><%= __('validationMessage.wrongNumbers') %></span>
+    </div>
+
+</main>
+
+<%- include('../../fragments/footer.ejs')%>

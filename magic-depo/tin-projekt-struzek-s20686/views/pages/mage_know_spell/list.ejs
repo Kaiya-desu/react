@@ -1,0 +1,43 @@
+<%- include('../../fragments/header.ejs')%>
+
+<main>
+<h2><%= __('mks.list.pageTitle') %></h2>
+    <table>
+        <thead>
+            <tr>
+                <th><%= __('mks.fields.mageName') %></th>
+                <th><%= __('mks.fields.spellName') %></th>
+                <th><%= __('mks.fields.learnedDate') %></th>
+                <th><%= __('mks.fields.masteryLevel') %></th>
+                <th><%= __('list.actions.title') %></th>
+            </tr>
+        </thead>
+        <tfoot>
+        <tr>
+            <td colspan="5"><a href="/mks/add"><%= __('mks.list.addNew') %></a></td>
+        </tr>
+        </tfoot>
+        <tbody>
+        <% for (let mks of mkss) { %>
+            <tr>
+                <td><%= mks.mage.Name + " " + mks.mage.Surname %></td>
+                <td><%= mks.spell.Name %></td>
+                <td><%= mks.Learned_date%></td>
+                <td><%= mks.Mastery_level%></td>
+                <td>
+                    <ul>
+                        <li><a href="/mks/details/<%= mks.MksID%>" class="list-actions-button-details"><%= __('list.actions.details') %></a></li>
+                        <li><a href="/mks/edit/<%= mks.MksID%>" class="list-actions-button-edit"><%= __('list.actions.edit') %></a></li>
+                        <%if(loggedUser && (loggedUser.Role === 1)) { %>
+                        <li><a href="/mks/delete/<%= mks.MksID%>" onclick="return confirm('OK?')" class="list-actions-button-delete"><%= __('list.actions.delete') %></a></li>
+                        <% } %>
+                    </ul>
+                </td>
+            </tr>
+        <% } %>
+
+        </tbody>
+    </table>
+</main>
+
+<%- include('../../fragments/footer.ejs')%>

@@ -1,0 +1,41 @@
+<%- include('../../fragments/header.ejs')%>
+
+<main>
+<h2><%= __('spell.list.pageTitle') %></h2>
+    <table>
+        <thead>
+            <tr>
+                <th><%= __('spell.fields.name') %></th>
+                <th><%= __('spell.fields.description') %></th>
+                <th><%= __('spell.fields.manaCost') %></th>
+                <th><%= __('list.actions.title') %></th>
+            </tr>
+        </thead>
+        <tfoot>
+        <tr>
+            <td colspan="4"><a href="/spells/add"><%= __('spell.list.addNew') %></a></td>
+        </tr>
+        </tfoot>
+        <tbody>
+        <% for (let spell of spells) { %>
+            <tr>
+                <td><%= spell.Name %></td>
+                <td><%= spell.Description %></td>
+                <td><%= spell.Mana_cost %></td>
+                <td>
+                    <ul>
+                        <li><a href="/spells/details/<%= spell.SpellID%>" class="list-actions-button-details"><%= __('list.actions.details') %></a></li>
+                        <li><a href="/spells/edit/<%= spell.SpellID%>" class="list-actions-button-edit"><%= __('list.actions.edit') %></a></li>
+                        <%if(loggedUser && (loggedUser.Role === 1)) { %>
+                        <li><a href="/spells/delete/<%= spell.SpellID%>" onclick="return confirm('OK?')" class="list-actions-button-delete"><%= __('list.actions.delete') %></a></li>
+                        <% } %>
+                    </ul>
+                </td>
+            </tr>
+        <% } %>
+
+        </tbody>
+    </table>
+</main>
+
+<%- include('../../fragments/footer.ejs')%>
